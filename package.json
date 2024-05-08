@@ -19,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/valle-xyz/merkle-tree-tutorial/issues"
   },
-  "homepage": "https://github.com/valle-xyz/merkle-tree-tutorial#readme"
+  "type": "module",
+  "homepage": "https://github.com/valle-xyz/merkle-tree-tutorial#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.8.0"
+  }
 }
