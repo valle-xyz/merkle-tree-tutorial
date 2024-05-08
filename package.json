@@ -1,0 +1,23 @@
+{
+  "name": "merkle-tree-tutorial",
+  "version": "1.0.0",
+  "description": "A Merkle Tree Tutorial for developers new to web3",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valle-xyz/merkle-tree-tutorial.git"
+  },
+  "keywords": [
+    "merkletree",
+    "cryptography"
+  ],
+  "author": "Valentin Seehausen",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/valle-xyz/merkle-tree-tutorial/issues"
+  },
+  "homepage": "https://github.com/valle-xyz/merkle-tree-tutorial#readme"
+}
