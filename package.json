@@ -34,5 +34,6 @@
   },
   "dependencies": {
     "@openzeppelin/merkle-tree": "^1.0.6"
-  }
+  },
+  "type": "module"
 }
