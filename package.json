@@ -4,7 +4,7 @@
   "description": "A Merkle Tree Tutorial for developers new to web3",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -19,10 +19,14 @@
   "bugs": {
     "url": "https://github.com/valle-xyz/merkle-tree-tutorial/issues"
   },
-  "type": "module",
   "homepage": "https://github.com/valle-xyz/merkle-tree-tutorial#readme",
   "devDependencies": {
+    "@babel/core": "^7.24.5",
+    "@babel/preset-env": "^7.24.5",
+    "@babel/preset-typescript": "^7.24.1",
     "@eslint/js": "^9.2.0",
+    "@types/jest": "^29.5.12",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
     "typescript": "^5.4.5",
