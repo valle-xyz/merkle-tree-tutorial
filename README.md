@@ -11,7 +11,18 @@ At the end of this tutorial:
 - You will know how to use proofs to verify leaves.
 - You will have had some fun learning a new technology.
 
-## 1. Intro: Why are Merkle trees useful?
+These are the chapters of this tutorial:
+
+1. [Introduction: Why are Merkle trees useful?](#introduction-why-are-merkle-trees-useful)
+2. [Build a Merkle tree](#build-a-merkle-tree)
+3. [Deepen understanding with Subtrees](#deepen-understanding-with-subtrees)
+4. [Utilizing Merkle trees to verify data](#utilizing-merkle-trees-to-verify-data)
+5. [Usage examples of Merkle trees](#usage-examples-of-merkle-trees)
+6. [End and next steps](#end-and-next-steps)
+
+And now, let's get started!
+
+## Introduction: Why are Merkle trees useful?
 
 ### Problem: Blockspace is expensive
 
@@ -128,7 +139,7 @@ Well done.
 
 In a next step, you will learn, how Merkle trees are composed, by creating two subtrees of our Merkle trees.
 
-## Subtrees
+## Deepen understanding with Subtrees
 
 Let's now have a quick look at two subtrees of our first Merkle tree. You will see, that Merkle trees are simple combinations of hashes.
 
@@ -252,7 +263,7 @@ This is how simple it is to use a Merkle tree to verify data.
 
 How would you use a Merkle tree in a real blockchain application?
 
-## Usages of Merkle trees
+## Usage examples of Merkle trees
 
 On a blockchain application you would hand those proofs to your users (or let your frontend do it). The users than have to verify that they own the email address (by clicking on a magic link sent to the email address), and then verify their email address is part of the merkle root.
 
