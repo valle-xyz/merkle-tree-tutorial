@@ -11,7 +11,7 @@ At the end of this tutorial:
 - You will know how to use proofs to verify leaves.
 - You will have had some fun learning a new technology.
 
-These are the chapters of this tutorial:
+### Chapters of this tutorial (table of content)
 
 1. [Introduction: Why are Merkle trees useful?](#introduction-why-are-merkle-trees-useful)
 2. [Build a Merkle tree](#build-a-merkle-tree)
