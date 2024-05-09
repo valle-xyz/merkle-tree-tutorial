@@ -60,8 +60,11 @@ const values = [["alice@email.com"], ["bob@email.com"], ["carol@email.com"]];
 // We have to provide the type of the values:
 const types = ["string"];
 
+// For this turorial, we have to disable the automatic sorting of the leaves:
+const options = { sortLeaves: false };
+
 // Now we can create the tree:
-export const tree = StandardMerkleTree.of(values, types);
+export const tree = StandardMerkleTree.of(values, types, options);
 ```
 
 Perfect. To inspect our tree, we use jest as a testing library. Write this into `test/1_three_leafs.test.ts`:
@@ -69,15 +72,13 @@ Perfect. To inspect our tree, we use jest as a testing library. Write this into 
 ```ts
 import { tree } from "../src/1_three_leafs";
 
-describe("1: three leafs", () => {
-  test("1_1: Inspecting the tree", () => {
-    console.log("We can inspect the tree:\n", tree.render());
-    console.log("And get the root of the tree:", tree.root);
+test("1: three leafs", () => {
+  console.log("This is the whole tree:\n", tree.render());
+  console.log("This is the tree's root:\n", tree.root);
 
-    expect(tree.root).toBe(
-      "0x4aced1c6cd24cc0494d3408b4b01d4ac86af6c293ae6cfb5e6a42f09517ac1c6"
-    );
-  });
+  expect(tree.root).toBe(
+    "0xa7901c479a3c48fa9e81e243dbcb61fe824afa909bfe1364a9e795526c121c21"
+  );
 });
 ```
 
@@ -91,17 +92,19 @@ You will see this output:
 
     console.log
       This is the whole tree:
-       0) 4aced1c6cd24cc0494d3408b4b01d4ac86af6c293ae6cfb5e6a42f09517ac1c6
-      ├─ 1) 0b580d4cfb79ca51389e26e12f08c0a85d8fbfe53a696a5b025c0691cbcbf210
-      │  ├─ 3) ca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201
-      │  └─ 4) 3f43cd0ce9c9d6491f71bb4a13e347f191e98c76cc943f33502ecc68b4488de0
-      └─ 2) e1fa5b6773accf9566324b9fbd5e5eac6c4c2a624cb2cd1e47691ce04619070c
+       0) a7901c479a3c48fa9e81e243dbcb61fe824afa909bfe1364a9e795526c121c21
+      ├─ 1) a1b2630267038e5532c85a3d54c96ad53f1d7ef353cde3912f5d30f5627311bb
+      │  ├─ 3) e1fa5b6773accf9566324b9fbd5e5eac6c4c2a624cb2cd1e47691ce04619070c
+      │  └─ 4) ca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201
+      └─ 2) 3f43cd0ce9c9d6491f71bb4a13e347f191e98c76cc943f33502ecc68b4488de0
 
       at Object.log (test/1_three_leafs.test.ts:5:13)
 
     console.log
       This is the tree's root:
-       0x4aced1c6cd24cc0494d3408b4b01d4ac86af6c293ae6cfb5e6a42f09517ac1c6
+       0xa7901c479a3c48fa9e81e243dbcb61fe824afa909bfe1364a9e795526c121c21
+
+      at Object.log (test/1_three_leafs.test.ts:6:13)
 ```
 
 Here is another image of our newly created merkle tree.
