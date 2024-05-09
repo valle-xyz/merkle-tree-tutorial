@@ -2,12 +2,12 @@
 
 Welcome to our tutorial on Merkle trees! Merkle trees are a fundamental building block of blockchains. They are useful for many different types of decentralized applications. And the best is, they are very easy to use.
 
-In this tutorial, you will use the [Merkle tree library of Open Zeppelin](https://github.com/OpenZeppelin/merkle-tree). You will build a simple Merkle tree and test it with jest.
+In this tutorial, you will build a simple Merkle tree with the [library of Open Zeppelin](https://github.com/OpenZeppelin/merkle-tree) and test it with jest.
 
 At the end of this tutorial:
 
 - You will know how to create a Merkle tree.
-- You will understand the concept of Merkle trees, how they are built, and why they are important.
+- You will understand the concept of Merkle trees, how they are built, and why they are useful.
 - You will know how to use proofs to verify leaves.
 - You will have had some fun learning a new technology.
 
@@ -15,7 +15,7 @@ At the end of this tutorial:
 
 1. [Introduction: Why are Merkle trees useful?](#introduction-why-are-merkle-trees-useful)
 2. [Build a Merkle tree](#build-a-merkle-tree)
-3. [Deepen understanding with Subtrees](#deepen-understanding-with-subtrees)
+3. [Deepen your understanding with subtrees](#deepen-your-understanding-with-subtrees)
 4. [Utilizing Merkle trees to verify data](#utilizing-merkle-trees-to-verify-data)
 5. [Usage examples of Merkle trees](#usage-examples-of-merkle-trees)
 6. [End and next steps](#end-and-next-steps)
@@ -28,7 +28,7 @@ And now, let's get started!
 
 As a developer new to blockchain technology, you will encounter many new concepts. While the syntax of Solidity looks similar to JS, some programming paradigms are fundamentally different on the blockchain, than on the centralized internet.
 
-One main example is access control and verification. Let's say you'd wanted to grant access to a selected group of users, verified by their email. On a centralized backend, you would store every verified email address in a database. When a user proofs she owns an email address (usually you send a magic link to the email address), you would look up the email address in a database, check if it's verified, and than proceed accordingly.
+One main example is access control and verification. Let's say you'd wanted to grant access to a selected group of users, verified by their email. On a centralized backend, you would store every verified email address in a database. When a user proofs she owns an email address (i.e. by clicking on a magic link sent to her email address), you would look up the email address in a database, check if it's verified, and than proceed accordingly.
 
 That does not work on the blockchain.
 
@@ -38,15 +38,15 @@ Why?
 
 - Also, depending on the amount of addresses, you may have to use multiple transactions, so you would have to write a routine to make sure all transactions settle.
 
-- And last but not least, every data on the chain is public. Different to a centralized backend, you cannot make sure that the data is private. Your users don't want to read their email address on the blockchain.
+- And last but not least, every data on a blockchain is public. Different to a centralized backend, you cannot ensure data privacy. Your users don't want to read their email addresses on the blockchain.
 
 Enter Merkle trees. 🦾
 
-### Solution: Merkle trees verify data efficiently
+### Solution: Merkle trees verify data efficiently and privately
 
-Merkle trees allow you to verify a (theoretically) infinite amount of data by storing only one hash on the blockchain.
+Merkle trees allow you to verify a (theoretically) infinite amount of data by storing only one hash on the blockchain. Also, a user does not need to know the other data points to verify her data, so Merkle trees act as a privacy enhancing technology.
 
-The general idea of how to create a Merkle trees is as follows: First, you hash a value (i.e. you hash an email address). Then you take the resulting hash, combine it with the hash of another value and hash this combination again. You repeat this procedure until there is only one hash remaining, which is called the "root" of the Merkle tree. A Merkle tree thus consists of the leaves (the hashed of the initial values), the branches (the combined hashes of leaves and other branches), and the root (the final hash) of the Merkle tree.
+The general idea of how to create a Merkle tree is: First, you hash a value (i.e. you hash an email address). Then you take the resulting hash, combine it with the hash of another value and hash this combination again. You repeat this procedure until there is only one hash remaining, which is called the "root" of the Merkle tree. A Merkle tree thus consists of the leaves (the hashes of the initial values), the branches (the combinations of hashes), and the root (the final hash) of the Merkle tree.
 
 This sounds complicated now, but will become clear once you create your first Merkle tree in the next chapter.
 
@@ -139,7 +139,7 @@ Well done.
 
 In a next step, you will learn, how Merkle trees are composed, by creating two subtrees of our Merkle trees.
 
-## Deepen understanding with Subtrees
+## Deepen your understanding with subtrees
 
 Let's now have a quick look at two subtrees of our first Merkle tree. You will see, that Merkle trees are simple combinations of hashes.
 
@@ -219,7 +219,7 @@ In this chapter, you will bring the first Merkle tree with three leaves to actio
 
 If we would use our Merkle tree in a real-world blockchain application, we would write only the root of the Merkle tree on the chain. Remember, that you can compose a Merkle tree of as many data points you want, so storing only the root is very efficient.
 
-We now want to verify the user with the email address 'alice@email.com'. In order to verify this email address, we need the proof of this leaf. Let's do this in practice.
+We now want to verify the user with the email address `alice@email.com`. In order to verify this email address, we need the proof of this leaf. Let's do this in practice.
 
 You don't have to create a new Merkle tree, only create a new test file under `test/3_verification_with_proof.test.ts` with this content:
 
@@ -253,11 +253,13 @@ Run `npx jest -t "3: Verification with proof"` and your console should output:
       at Object.log (test/3_verification_with_proof.test.ts:7:11)
 ```
 
-Have a look at the proof. Do you know these values? Correct, they are leaves and branches of our Merkle tree. You can draw a path from our value 'alice@email.com' down to the root. Our email is hashed and then combined with other hashes on every level. The proof consists of these other hashes.
+As you see, the test passes. So the last line of our test is enough to verify the data.
+
+Have a look at the proof and compare the entries to your first Merkle tree. You will find, these entries are leaves and branches of your first Merkle tree. You can draw a path from the value `alice@email.com` down to the root. The email address is hashed into its leaf. The leaf is then combined with other hashes on every level. These other hashes are packed together in the proof. The proof of a value thus consists of all other hashes that are necessary to arrive at the merkle root starting from its leaf.
 
 ![The proof of the first leaf](./images/proof.png)
 
-The combination of our value and the other hashes are sufficient to arrive at the merkle root. This means, that you can use the proofs to _proof_ that the email is part of this Merkle tree. The proofs don't have to be written on the blockchain, they are only required as an input parameter for verifying a value.
+The combination of our value and the other hashes is sufficient to arrive at the merkle root. This means, that you can use the proofs to _prove_ that the email is part of this Merkle tree. The proofs don't have to be written on the blockchain, they are only required as an input parameter for verifying a value.
 
 This is how simple it is to use a Merkle tree to verify data.
 
@@ -267,16 +269,16 @@ How would you use a Merkle tree in a real blockchain application?
 
 On a blockchain application you would hand those proofs to your users (or let your frontend do it). The users than have to verify that they own the email address (by clicking on a magic link sent to the email address), and then verify their email address is part of the merkle root.
 
-An example where Merkle trees are used often, is creating a whitelist of users for a mint or a presale.
+Merkle trees are commonly used to implement whitelist to control access to a NFT mint or token presale.
 
 For this, you would follow these steps:
 
 1. Gather all wallet addresses that you want to whitelist.
-2. Create a Merkle tree on a backend. Either let the Merkle tree be stored in memory, or store all proofs in a database. You want to be able to access the proofs in a later phase.
+2. Create a Merkle tree on a backend. Either store the Merkle tree in memory, or store all proofs in a database. You want to be able to access the proofs in a later phase.
 3. Store the merkle root on the blockchain (i.e. in the mint contract or presale contract).
 4. Create a frontend, where users can log in with their wallet.
-5. Usually, your frontend receives the proof from the backend and assembles a transaction with the proof for the user to sign.
-6. The user signs this transaction with her wallet and send it to the blockchain.
+5. Request the proof from the backend via the frontend. The frontend then assembles a transaction including the proof for the user to sign.
+6. The user signs this transaction with her wallet and sends it to the blockchain.
 7. On the chain, the smart contract checks if the signer of the transaction (_msg.sender_) and the proof are part of the Merkle tree.
 8. If yes, the user is whitelisted.
 
@@ -290,8 +292,10 @@ Congratulations! You successfully finished this tutorial. We hope you had some f
 
 To deepen you knowledge and gain a deeper understanding, we suggest the following steps:
 
-- Create a proof for the email 'carol@email.com' with the first Merkle tree. Compare the length of this proof to the length of the proof of 'alice@email.com'. Look at the path from this email and compare it to the path of the first email. Can you see, why this proof has a different length?
+- Create a proof for the email `carol@email.com` from the first Merkle tree. Compare the length of this proof to the length of the proof of `alice@email.com`. Look at the path from this email and compare it to the path of the first email. Can you see, why this proof has a different length?
 - How can you hash multiple values? For example an address and an uint (i.e. an allocation of tier)? This is a question specific to the library of Open Zeppelin.
+- Duplicate the first Merkle tree and set _sortLeaves_ to _true_. How does the Merkle tree differ from the original one?
+- Try to break things. See what happens when you want to verify the wrong value, or use the wrong proof. Also try to get a proof for a non-existent value.
 - Try to write a simple smart contract in Solidity to verify your proofs on-chain.
 
 Thanks a lot for following along. We wish you all the best on your exiting journey into web3 technologies.
