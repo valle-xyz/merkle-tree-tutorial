@@ -193,3 +193,83 @@ As you see, the leafs and hashes of the two subtrees are the same hashes we alre
 > The subtrees in our example require the option _sortLeaves_ to be false. Otherwise, the library will [order the leafes](https://github.com/OpenZeppelin/merkle-tree?tab=readme-ov-file#leaf-ordering) in order to make the merkle tree more efficient on the blockchain.
 
 Perfect, now you should have a decent understanding of how merkle trees are created. In the next chapter you will learn how to use merkle trees to verify data.
+
+## Utilizing merkle trees to verify data
+
+In this chapter we will use our first merkle tree with three leafs. We will learn about proofs and how to verify data with merkle trees.
+
+If we would use our merkle tree in a real-world blockchain application, we would write only the root of the merkle tree on the chain. Remember, that you can compose a merkle tree of as many data points you want, so storing only the root is very efficient.
+
+We now want to verify the user with the email address 'alice@email.com'. In order to verify this email address, we need the proof of this leaf. Let's do this in practice.
+
+You don't have to create a new merkle tree, only create a new test file under `test/3_verification_with_proof.test.ts` with this content:
+
+```ts
+import { tree } from "../src/1_three_leafs";
+
+test("3: verification with proof", () => {
+  // We can get a proof for a leaf/value like this:
+  const proof = tree.getProof(["alice@email.com"]);
+
+  console.log("This is the proof for Alice's email:\n", proof);
+
+  // Now we can verify the proof:
+  expect(tree.verify(["alice@email.com"], proof)).toBe(true);
+});
+```
+
+Run `npx jest -t "3: verification with proof"` and your console should output:
+
+```
+ PASS  test/3_verification_with_proof.test.ts
+  ● Console
+
+    console.log
+      This is the proof for Alice's email:
+       [
+        '0xe1fa5b6773accf9566324b9fbd5e5eac6c4c2a624cb2cd1e47691ce04619070c',
+        '0x3f43cd0ce9c9d6491f71bb4a13e347f191e98c76cc943f33502ecc68b4488de0'
+      ]
+
+      at Object.log (test/3_verification_with_proof.test.ts:7:11)
+```
+
+Have a look at the proof. Do you know these values? Correct, they are leafs and branches of our merkle tree. Have a look at our merkle tree, and draw a path from our value 'alice@email.com' down to the root. Our email is hashed and then combined with other hashes on every level. The proof consists of these other hashes.
+
+![The proof of the first leaf](./images/proof.png)
+
+The combination of our value and the other hashes are enough to arive at the merkle root. So the email and the proof are enough to verify that the email is part of this merkle tree. The proofs don't have to be written on the blockchain, they are only required as an input for verifying a value.
+
+This is how simple it is to use a merkle tree to verify data.
+
+How would you use a merkle tree in a real blockchain application?
+
+## Usages of merkle trees
+
+On a blockchain application you would hand those proofs to your users (or let your frontend do it). The users than have to verify that they own the email address (you could send them a magic link to their email), and then verify their email is part of the merkle root.
+
+One example usage of this method is whitelisting users for a mint or a presale.
+
+For this, you would follow these steps:
+
+1. Gather all wallet addresses that you want to whitelist.
+2. Create a merkle tree on a backend, to be able to access the proofs.
+3. Write the merkle root on chain (into the mint contract or presale contract).
+4. Create a frontend, where users can log in with their wallet and receive their proof. Usually, your frontend creates a transaction for the user to sign.
+5. A user signs this transaction with her wallet. On the chain, you will check if _msg.sender_ and the proof are part of the merkle tree. If yes, the user is whitelisted.
+
+You can learn more about the on-chain part here: [Validation a proof in Solidity](https://github.com/OpenZeppelin/merkle-tree?tab=readme-ov-file#validating-a-proof-in-solidity)
+
+Very well done, you have used a merkle tree to verify data.
+
+## End and next steps
+
+Congratulations! You successfully finished this tutorial. We hope you had some fun, and learned about merkle trees and how to use them.
+
+To deepen you knowledge and gain more understanding, we suggest the following steps:
+
+- Create a proof for the email 'carol@email.com'. Compare the lengths of this proof to our first proof. Look at the path from this email and compare it to the path of the first email. Can you see, why this proof has a different length?
+- How can you hash multiple values? For example an address and an uint (i.e. an allocation of tier)?
+- Try to write a simple smart contract in Solidity to verify your proofs on-chain.
+
+Thanks a lot for following along. We wish you all the best on your exiting journey into web3 technologies.
