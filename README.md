@@ -1,6 +1,6 @@
 # A practical introduction into Merkle trees
 
-Congratulations to your decision to learn about Merkle trees. They are a fundamental building block of blockchains, very useful for many different types of decentralized applications, and very easy to use.
+Welcome to our tutorial on Merkle trees! Merkle trees are a fundamental building block of blockchains. They are useful for many different types of decentralized applications. And the best is, they are very easy to use.
 
 In this tutorial, you will use the [Merkle tree library of Open Zeppelin](https://github.com/OpenZeppelin/merkle-tree). You will build a simple Merkle tree and test it with jest.
 
