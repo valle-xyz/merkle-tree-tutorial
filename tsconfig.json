@@ -7,6 +7,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "strict": true
   },
 }
