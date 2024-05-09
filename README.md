@@ -82,7 +82,7 @@ test("1: three leafs", () => {
 });
 ```
 
-You can run this test with `npx jest -t "1_1: Inspecting the tree"`.
+You can run this test with `npx jest -t "1: three leafs"`.
 
 You will see this output:
 
@@ -119,3 +119,77 @@ Here is another image of our newly created merkle tree.
 Well done.
 
 In a next step, you will learn, how merkle trees are composed, by creating two very small merkle trees.
+
+## The two subtrees
+
+Let's now have a quick look at the two subtrees of our first merkle tree. You will see, that merkle trees are simple combinations of hashes.
+
+Start by pasting this code into the file `src/2_sub_trees.ts`:
+
+```ts
+import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
+
+// For this file to be concise, we omit declaring variables and pass values and types directly to the `of` method.
+
+// This tree will only have one leaf:
+export const one_leaf_tree = StandardMerkleTree.of(
+  [["alice@email.com"]],
+  ["string"]
+);
+
+// And this tree will have two leafs:
+export const two_leafs_tree = StandardMerkleTree.of(
+  [["alice@email.com"], ["bob@email.com"]],
+  ["string"],
+  { sortLeaves: false }
+);
+```
+
+You created two merkle trees.
+
+Let's inspect them in a test file `test/2_sub_trees.test.ts`:
+
+```ts
+import { one_leaf_tree, two_leafs_tree } from "../src/2_sub_trees";
+
+test("2: subtrees", () => {
+  console.log("This is the one leaf tree:\n", one_leaf_tree.render());
+  console.log("This is the two leafs tree:\n", two_leafs_tree.render());
+
+  expect(one_leaf_tree.root).toBe(
+    "0xca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201"
+  );
+  expect(two_leafs_tree.root).toBe(
+    "0xa1b2630267038e5532c85a3d54c96ad53f1d7ef353cde3912f5d30f5627311bb"
+  );
+});
+```
+
+Run this test with `npx jest -t "2: subtrees"`. Your console will output this:
+
+```
+ PASS  test/2_sub_trees.test.ts
+  ● Console
+
+    console.log
+      This is the one leaf tree:
+       0) ca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201
+
+      at Object.log (test/2_sub_trees.test.ts:4:11)
+
+    console.log
+      This is the two leafs tree:
+       0) a1b2630267038e5532c85a3d54c96ad53f1d7ef353cde3912f5d30f5627311bb
+      ├─ 1) e1fa5b6773accf9566324b9fbd5e5eac6c4c2a624cb2cd1e47691ce04619070c
+      └─ 2) ca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201
+
+      at Object.log (test/2_sub_trees.test.ts:5:11)
+```
+
+As you see, the leafs and hashes of the two subtrees are the same hashes we already know from our first tree with three leafs. This shows, how a merkle tree is combining the hashes of its leafs and branches until only one root node is left. Each branch of a tree is the root of a subtree:
+
+![The subtrees of our merkle tree](./images/subtrees.png)
+
+> The subtrees in our example require the option _sortLeaves_ to be false. Otherwise, the library will [order the leafes](https://github.com/OpenZeppelin/merkle-tree?tab=readme-ov-file#leaf-ordering) in order to make the merkle tree more efficient on the blockchain.
+
+Perfect, now you should have a decent understanding of how merkle trees are created. In the next chapter you will learn how to use merkle trees to verify data.
