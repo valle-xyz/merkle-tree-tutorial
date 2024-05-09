@@ -6,7 +6,7 @@ const values = [["alice@email.com"], ["bob@email.com"], ["carol@email.com"]];
 // We have to provide the type of the values:
 const types = ["string"];
 
-// For this turorial, we have to disable the automatic sorting of the leaves:
+// For this tutorial, we have to disable the automatic sorting of the leaves:
 const options = { sortLeaves: false };
 
 // Now we can create the tree:
