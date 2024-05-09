@@ -1,6 +1,6 @@
-import { tree } from "../src/1_three_leafs";
+import { tree } from "../src/1_first_merkle_tree";
 
-test("1: three leafs", () => {
+test("1: First Merkle tree", () => {
   console.log("This is the whole tree:\n", tree.render());
   console.log("This is the tree's root:\n", tree.root);
 

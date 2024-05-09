@@ -1,6 +1,6 @@
-import { tree } from "../src/1_three_leafs";
+import { tree } from "../src/1_first_merkle_tree";
 
-test("3: verification with proof", () => {
+test("3: Verification with proof", () => {
   // We can get a proof for a leaf/value like this:
   const proof = tree.getProof(["alice@email.com"]);
 

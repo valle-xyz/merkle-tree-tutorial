@@ -8,8 +8,8 @@ export const one_leaf_tree = StandardMerkleTree.of(
   ["string"]
 );
 
-// And this tree will have two leafs:
-export const two_leafs_tree = StandardMerkleTree.of(
+// And this tree will have two leaves:
+export const two_leaves_tree = StandardMerkleTree.of(
   [["alice@email.com"], ["bob@email.com"]],
   ["string"],
   { sortLeaves: false }
