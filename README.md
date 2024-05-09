@@ -109,12 +109,14 @@ PASS  test/1_three_leafs.test.ts
 
 Here is another image of our newly created Merkle tree.
 
+![Image of a Merkle tree with three leafs](./images/three_leaf_merkle_tree.png)
+
+You see:
+
 1. The tree starts with the values.
 2. The leafs are the hashes of the value.
 3. There is only one branch, which hashes the first two leafs.
 4. Finally, the root is a hash of the branch and the third leaf.
-
-![Image of a Merkle tree with three leafs](./images/three_leaf_merkle_tree.png)
 
 Well done.
 
@@ -124,12 +126,12 @@ In a next step, you will learn, how Merkle trees are composed, by creating two v
 
 Let's now have a quick look at the two subtrees of our first Merkle tree. You will see, that Merkle trees are simple combinations of hashes.
 
-Start by pasting this code into the file `src/2_sub_trees.ts`:
+Start by pasting this code into the file `src/2_subtrees.ts`:
 
 ```ts
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 
-// For this file to be concise, we omit declaring variables and pass values and types directly to the `of` method.
+// To keep this file short, we omit declaring variables and pass values and types directly to the `of` method.
 
 // This tree will only have one leaf:
 export const one_leaf_tree = StandardMerkleTree.of(
@@ -147,10 +149,10 @@ export const two_leafs_tree = StandardMerkleTree.of(
 
 You created two Merkle trees.
 
-Let's inspect them in a test file `test/2_sub_trees.test.ts`:
+Let's inspect them in a test file `test/2_subtrees.test.ts`:
 
 ```ts
-import { one_leaf_tree, two_leafs_tree } from "../src/2_sub_trees";
+import { one_leaf_tree, two_leafs_tree } from "../src/2_subtrees";
 
 test("2: subtrees", () => {
   console.log("This is the one leaf tree:\n", one_leaf_tree.render());
@@ -168,22 +170,22 @@ test("2: subtrees", () => {
 Run this test with `npx jest -t "2: subtrees"`. Your console will output this:
 
 ```
-PASS  test/2_sub_trees.test.ts
+ PASS  test/2_subtrees.test.ts
   ● Console
 
     console.log
-      This is the one leaf tree:
-      0) ca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201
+      This is the tree with one leaf:
+       0) ca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201
 
-      at Object.log (test/2_sub_trees.test.ts:4:11)
+      at Object.log (test/2_subtrees.test.ts:4:11)
 
     console.log
-      This is the two leafs tree:
-      0) a1b2630267038e5532c85a3d54c96ad53f1d7ef353cde3912f5d30f5627311bb
+      This is the tree with two trees:
+       0) a1b2630267038e5532c85a3d54c96ad53f1d7ef353cde3912f5d30f5627311bb
       ├─ 1) e1fa5b6773accf9566324b9fbd5e5eac6c4c2a624cb2cd1e47691ce04619070c
       └─ 2) ca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201
 
-      at Object.log (test/2_sub_trees.test.ts:5:11)
+      at Object.log (test/2_subtrees.test.ts:5:11)
 ```
 
 As you see, the leafs and hashes of the two subtrees are the same hashes we already know from our first tree with three leafs. This shows, how a Merkle tree is combining the hashes of its leafs and branches until only one root node is left. Each branch of a tree is the root of a subtree:
@@ -221,12 +223,12 @@ test("3: verification with proof", () => {
 Run `npx jest -t "3: verification with proof"` and your console should output:
 
 ```
-PASS  test/3_verification_with_proof.test.ts
+ PASS  test/3_verification_with_proof.test.ts
   ● Console
 
     console.log
       This is the proof for Alice's email:
-      [
+       [
         '0xe1fa5b6773accf9566324b9fbd5e5eac6c4c2a624cb2cd1e47691ce04619070c',
         '0x3f43cd0ce9c9d6491f71bb4a13e347f191e98c76cc943f33502ecc68b4488de0'
       ]

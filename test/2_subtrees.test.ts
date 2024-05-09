@@ -1,8 +1,8 @@
-import { one_leaf_tree, two_leafs_tree } from "../src/2_sub_trees";
+import { one_leaf_tree, two_leafs_tree } from "../src/2_subtrees";
 
 test("2: subtrees", () => {
-  console.log("This is the one leaf tree:\n", one_leaf_tree.render());
-  console.log("This is the two leafs tree:\n", two_leafs_tree.render());
+  console.log("This is the tree with one leaf:\n", one_leaf_tree.render());
+  console.log("This is the tree with two trees:\n", two_leafs_tree.render());
 
   expect(one_leaf_tree.root).toBe(
     "0xca2eaa280e118a6ce002d549e4042829140131fcf9a3f58feec61afe359c2201"

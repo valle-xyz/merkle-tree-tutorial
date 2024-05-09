@@ -1,6 +1,6 @@
 import { StandardMerkleTree } from "@openzeppelin/merkle-tree";
 
-// For this file to be concise, we omit declaring variables and pass values and types directly to the `of` method.
+// To keep this file short, we omit declaring variables and pass values and types directly to the `of` method.
 
 // This tree will only have one leaf:
 export const one_leaf_tree = StandardMerkleTree.of(
